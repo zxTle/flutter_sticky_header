@@ -59,11 +59,13 @@ class Header extends StatelessWidget {
     this.index,
     this.title,
     this.color = Colors.lightBlue,
+    this.height = 60,
   }) : super(key: key);
 
   final String? title;
   final int? index;
   final Color color;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +74,7 @@ class Header extends StatelessWidget {
         print('hit $index');
       },
       child: Container(
-        height: 60,
+        height: height,
         color: color,
         padding: EdgeInsets.symmetric(horizontal: 16.0),
         alignment: Alignment.centerLeft,

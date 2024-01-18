@@ -14,10 +14,12 @@ class ReverseExample2 extends StatelessWidget {
       reverse: true,
       title: 'Reverse Example',
       slivers: [
-        _StickyHeaderList(index: 0),
-        _StickyHeaderList(index: 1),
-        _StickyHeaderList(index: 2),
-        _StickyHeaderList(index: 3),
+        _StickyHeaderList(
+          index: 0,
+          count: 15,
+          height: 70,
+        ),
+        _StickyHeaderList(index: 1, count: 7),
       ],
     );
   }
@@ -27,24 +29,31 @@ class _StickyHeaderList extends StatelessWidget {
   const _StickyHeaderList({
     Key? key,
     this.index,
+    required this.count,
+    this.height = 60,
   }) : super(key: key);
 
   final int? index;
-
+  final int count;
+  final double height;
   @override
   Widget build(BuildContext context) {
-    return SliverStickyHeader(
-      header: Header(index: index),
+    return SliverStickyHeader.builder(
+      builder: (context, state) => Header(
+        index: index,
+        color: state.isPinned ? Colors.red : Colors.blue,
+        height: height,
+      ),
       reverse: true,
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
-              (context, i) => ListTile(
+          (context, i) => ListTile(
             leading: CircleAvatar(
               child: Text('$index'),
             ),
             title: Text('List tile #$i'),
           ),
-          childCount: 6,
+          childCount: count,
         ),
       ),
     );
